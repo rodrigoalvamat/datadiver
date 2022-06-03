@@ -30,7 +30,7 @@ class App:
     def __config_page(self):
         st.set_page_config(
             page_title="Sparkify Dashboard",
-            page_icon="https://github.com/bragile/cloud/blob/main/public/images/favicon.ico?raw=true",
+            page_icon="/images/favicon.ico",
             layout="wide",
             initial_sidebar_state="expanded",
             menu_items={

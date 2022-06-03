@@ -1,36 +1,63 @@
-# data app libs
+# system libs
+import sys
+# app libs
 import streamlit as st
-
-# etl/eda libs
-import pandas as pd
-
 # sql libs
 from sqlalchemy import create_engine
+# UI component libs
+from sidebar import Sidebar
+from users import User
 
 
-#database = 'postgresql+psycopg2://student:student@127.0.0.1/sparkifydb'
+class App:
 
-username = 'erxsjqjd'
-password = 'OhDRrRbv8b59vECc08ENtqtG3rFekShP'
-host = 'heffalump.db.elephantsql.com'
-database = username
+    def __init__(self, cloud):
+        self.connection = self.__create_connection(cloud)
+        self.__config_page()
 
-database = f'postgresql+psycopg2://{username}:{password}@{host}/{database}'
-engine = create_engine(database)
+    def __create_connection(self, cloud):
+        if cloud:
+            username = 'erxsjqjd'
+            password = 'OhDRrRbv8b59vECc08ENtqtG3rFekShP'
+            host = 'heffalump.db.elephantsql.com'
+            database = username
+            dbconf = f'postgresql+psycopg2://{username}:{password}@{host}/{database}'
+        else:
+            dbconf = 'postgresql+psycopg2://student:student@127.0.0.1/sparkifydb'
 
-query = """
-SELECT COUNT(*) AS plays, u.first_name AS user
-FROM songplays AS s
-JOIN users AS u
-ON s.user_id = u.user_id
-GROUP BY s.user_id, u.first_name
-ORDER BY plays DESC;
-"""
+        return create_engine(dbconf)
 
-songplays = pd.read_sql(query, engine)
+    def __config_page(self):
+        st.set_page_config(
+            page_title="Sparkify Dashboard",
+            page_icon="https://github.com/bragile/cloud/blob/main/public/images/favicon.ico?raw=true",
+            layout="wide",
+            initial_sidebar_state="expanded",
+            menu_items={
+                'Get help': 'https://www.linkedin.com/in/rodrigo-alvarenga-mattos',
+                'Report a bug': "https://github.com/rodrigoalvamat/portfolio/issues",
+                'About': "# This is a Data Enginner ETL Pipeline showcase app!"
+            }
+        )
 
-st.write("""
-# Sparkify Dashboard
-""")
 
-st.bar_chart(songplays['plays'].head(20))
+    def render(self):
+        sidebar = Sidebar(200)
+        sidebar.render()
+
+        st.write("""
+        # Sparkify Dashboard
+        """)
+
+        user = User(self.connection)
+        user.render()
+
+
+if __name__ == "__main__":
+
+    if len(sys.argv) == 2 and sys.argv[1] == 'cloud':
+        app = App(cloud=True)
+    else:
+        app = App(cloud=False)
+
+    app.render()

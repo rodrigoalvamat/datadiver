@@ -1,1 +1,1 @@
-web: streamlit run sparkify/dashboard/app.py cloud
+web: sh setup.sh && streamlit run sparkify/dashboard/app.py cloud

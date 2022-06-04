@@ -1,4 +1,5 @@
 # system libs
+import os
 import sys
 # app libs
 import streamlit as st
@@ -17,11 +18,11 @@ class App:
 
     def __create_connection(self, cloud):
         if cloud:
-            username = 'erxsjqjd'
-            password = 'OhDRrRbv8b59vECc08ENtqtG3rFekShP'
-            host = 'heffalump.db.elephantsql.com'
-            database = username
-            dbconf = f'postgresql+psycopg2://{username}:{password}@{host}/{database}'
+            # cloud database connection configuration
+            host = os.environ['PGSQL_CLOUD_HOST']
+            username = os.environ['PGSQL_CLOUD_USERNAME'] 
+            password = os.environ['PGSQL_CLOUD_PASSWORD']
+            dbconf = f'postgresql+psycopg2://{username}:{password}@{host}/{username}'
         else:
             dbconf = 'postgresql+psycopg2://student:student@127.0.0.1/sparkifydb'
 

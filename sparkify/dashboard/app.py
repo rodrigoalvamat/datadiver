@@ -1,32 +1,21 @@
 # system libs
-import os
 import sys
+from database import Database
 # app libs
 import streamlit as st
-# sql libs
-from sqlalchemy import create_engine
+# style libs
+from styles import *
 # UI component libs
 from sidebar import Sidebar
-from users import User
+from songs import SongsDashboard
+from users import UsersDahsboard
 
 
 class App:
 
     def __init__(self, cloud):
-        self.connection = self.__create_connection(cloud)
+        self.database = Database(cloud)
         self.__config_page()
-
-    def __create_connection(self, cloud):
-        if cloud:
-            # cloud database connection configuration
-            host = os.environ['PGSQL_CLOUD_HOST']
-            username = os.environ['PGSQL_CLOUD_USERNAME'] 
-            password = os.environ['PGSQL_CLOUD_PASSWORD']
-            dbconf = f'postgresql+psycopg2://{username}:{password}@{host}/{username}'
-        else:
-            dbconf = 'postgresql+psycopg2://student:student@127.0.0.1/sparkifydb'
-
-        return create_engine(dbconf)
 
     def __config_page(self):
         st.set_page_config(
@@ -43,15 +32,19 @@ class App:
 
 
     def render(self):
+        header = f"""
+        <header style="{page_header_style}">Sparkify Dashboard</header>
+        """
+        st.markdown(header, unsafe_allow_html=True)
+
         sidebar = Sidebar(200)
         sidebar.render()
 
-        st.write("""
-        # Sparkify Dashboard
-        """)
+        users = UsersDahsboard(self.database)
+        users.render()
 
-        user = User(self.connection)
-        user.render()
+        songs = SongsDashboard(self.database)
+        songs.render()
 
 
 if __name__ == "__main__":

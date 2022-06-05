@@ -1,4 +1,6 @@
 altair
+matplotlib
 psycopg2-binary
 sqlalchemy
 streamlit
+wordcloud

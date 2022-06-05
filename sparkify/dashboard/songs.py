@@ -73,7 +73,7 @@ class SongsDashboard:
     def __render_plays_by_weekday(self, data):
         header = f"""
         <h5 style="{column_header_style}">All songplays</h5>
-        <h4 style="{column_subheader_styles}">By Weekdays</h4>
+        <h4 style="{column_subheader_styles}">By weekdays</h4>
         """
         st.markdown(header, unsafe_allow_html=True)
 
@@ -95,10 +95,10 @@ class SongsDashboard:
 
         st.altair_chart(graph, use_container_width=True)
 
-    def __render_plays_by_month(self, data):
+    def __render_plays_by_hour(self, data):
         header = f"""
         <h5 style="{column_header_style}">All songplays</h5>
-        <h4 style="{column_subheader_styles}">By Weekdays</h4>
+        <h4 style="{column_subheader_styles}">By hour</h4>
         """
         st.markdown(header, unsafe_allow_html=True)
 
@@ -135,7 +135,7 @@ class SongsDashboard:
             self.__render_plays_by_weekday(songplays)
 
         with col3:
-            self.__render_plays_by_month(songplays)
+            self.__render_plays_by_hour(songplays)
         
         with col4:
             self.__render_word_cloud(songs)

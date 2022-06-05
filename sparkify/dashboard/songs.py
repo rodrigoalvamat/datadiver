@@ -54,22 +54,6 @@ class SongsDashboard:
 
         st.dataframe(data=data, height=280)
 
-    def __render_word_cloud(self, data):
-        header = f"""
-        <h5 style="{column_header_style}">All song's titles</h5>
-        <h4 style="{column_subheader_styles}">Word cloud</h4>
-        """
-        st.markdown(header, unsafe_allow_html=True)
-
-        text = ' '.join(song for song in data['title'])
-        wordcloud = WordCloud(background_color='white', width=380, height=280).generate(text)
-
-        fig = plt.figure(figsize=(9, 9))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis("off")
-        plt.show()
-        st.pyplot(fig)
-
     def __render_plays_by_weekday(self, data):
         header = f"""
         <h5 style="{column_header_style}">All songplays</h5>
@@ -116,6 +100,22 @@ class SongsDashboard:
         ).interactive()
 
         st.altair_chart(graph, use_container_width=True)
+
+    def __render_word_cloud(self, data):
+        header = f"""
+        <h5 style="{column_header_style}">All song titles</h5>
+        <h4 style="{column_subheader_styles}">Word cloud</h4>
+        """
+        st.markdown(header, unsafe_allow_html=True)
+
+        text = ' '.join(song for song in data['title'])
+        wordcloud = WordCloud(background_color='white', width=380, height=280).generate(text)
+
+        fig = plt.figure(figsize=(9, 9))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.show()
+        st.pyplot(fig)
 
     def render(self):
         session_state = self.__get_session_state()

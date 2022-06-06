@@ -19,7 +19,7 @@ class App:
 
     def __config_page(self):
         st.set_page_config(
-            page_title="Sparkify Dashboard",
+            page_title="DataDiver - Sparkify Dashboard",
             page_icon="images/favicon.ico",
             layout="wide",
             initial_sidebar_state="expanded",

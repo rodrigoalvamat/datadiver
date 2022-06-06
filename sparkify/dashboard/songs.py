@@ -109,6 +109,7 @@ class SongsDashboard:
         st.markdown(header, unsafe_allow_html=True)
 
         text = ' '.join(song for song in data['title'])
+        text = text.replace('Album', '').replace('Version', '')
         wordcloud = WordCloud(background_color='white', width=380, height=280).generate(text)
 
         fig = plt.figure(figsize=(9, 9))

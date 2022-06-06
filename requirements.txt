@@ -1,6 +1,7 @@
-altair
-matplotlib
-psycopg2-binary
-sqlalchemy
-streamlit
-wordcloud
+altair==4.2.0
+matplotlib==3.5.2
+pandas==1.4.2
+psycopg2-binary==2.9.3
+sqlalchemy==1.4.37
+streamlit==1.10.0
+wordcloud==1.8.1

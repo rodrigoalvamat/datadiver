@@ -6,7 +6,7 @@ class StateManager:
 
     def __init__(self, database):
         self.__init_artist(database.artists_by_location)
-        self.__initi_song(database.songs_by_artist)
+        self.__init_song(database.songs_by_artist)
         self.__init_time(database.songplays_by_time)
         self.__init_user(database.songplays_by_user)
 
@@ -15,7 +15,7 @@ class StateManager:
             'data': data
         }
 
-    def __initi_song(self, data):
+    def __init_song(self, data):
         self.song = {
             'data': data
         }

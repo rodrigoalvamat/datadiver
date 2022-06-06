@@ -1,4 +1,3 @@
-
 # PAGE STYLES
 
 page_header_style = 'color: #0165AD; font-size: 42px; font-weight: 600; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #e6e6e6;'

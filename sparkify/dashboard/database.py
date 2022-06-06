@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 # sql queries
 from queries import *
 
+
 class Database:
     def __init__(self, cloud):
         if cloud:
@@ -18,7 +19,7 @@ class Database:
         else:
             conf = 'postgresql+psycopg2://student:student@127.0.0.1/sparkifydb'
 
-        connection =  create_engine(conf)  
+        connection = create_engine(conf)
 
         self.artists_by_location = pd.read_sql(artists_by_location, connection)
         self.songplays_by_time = pd.read_sql(songplays_by_time, connection)
@@ -26,4 +27,3 @@ class Database:
         self.songs_by_artist = pd.read_sql(songs_by_artist, connection)
 
         connection.dispose()
-         
